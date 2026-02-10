@@ -1,0 +1,149 @@
+MySQL Shell 9.6.0
+
+Copyright (c) 2016, 2026, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| taller1            |
++--------------------+
+5 rows in set (0.0011 sec)
+ MySQL  localhost:3306 ssl  SQL > use taller1;
+Default schema set to `taller1`.
+Fetching global names, object names from `taller1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  taller1  SQL > show table;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > show tables;
+Empty set (0.0033 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > create table persona(
+                                        -> idpersona int auto_increment key,
+                                        -> nombre varchar(50),
+                                        -> apellido varchar(50),
+                                        -> fecha_nac date);
+Query OK, 0 rows affected (0.0307 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > show tables;
++-------------------+
+| Tables_in_taller1 |
++-------------------+
+| persona           |
++-------------------+
+1 row in set (0.0030 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > show create table persona;
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                                                                                                                                    |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| persona | CREATE TABLE `persona` (
+  `idpersona` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) DEFAULT NULL,
+  `apellido` varchar(50) DEFAULT NULL,
+  `fecha_nac` date DEFAULT NULL,
+  PRIMARY KEY (`idpersona`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.0082 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > dec persona;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dec persona' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > desc persona;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| idpersona | int         | NO   | PRI | NULL    | auto_increment |
+| nombre    | varchar(50) | YES  |     | NULL    |                |
+| apellido  | varchar(50) | YES  |     | NULL    |                |
+| fecha_nac | date        | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+4 rows in set (0.0047 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > drop table persona;
+Query OK, 0 rows affected (0.0200 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > show tables;
+Empty set (0.0028 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > create table persona( idpersona int auto_increment key, nombre varchar(50),  apellido varchar(50), fecha_nac date);
+Query OK, 0 rows affected (0.0255 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > show tables;
++-------------------+
+| Tables_in_taller1 |
++-------------------+
+| persona           |
++-------------------+
+1 row in set (0.0030 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > show create table persona;
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                                                                                                                                    |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| persona | CREATE TABLE `persona` (
+  `idpersona` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) DEFAULT NULL,
+  `apellido` varchar(50) DEFAULT NULL,
+  `fecha_nac` date DEFAULT NULL,
+  PRIMARY KEY (`idpersona`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.0029 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > desc persona;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| idpersona | int         | NO   | PRI | NULL    | auto_increment |
+| nombre    | varchar(50) | YES  |     | NULL    |                |
+| apellido  | varchar(50) | YES  |     | NULL    |                |
+| fecha_nac | date        | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+4 rows in set (0.0033 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into persona (nombre,
+                                        -> apellido, fecha_nac)
+                                        -> value("Juan","Perez","2026-05-200");
+ERROR: 1292 (22007): Incorrect date value: '2026-05-200' for column 'fecha_nac' at row 1
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into persona (nombre, apellido, fecha_nac) value("Juan","Perez","2026-05-20");
+Query OK, 1 row affected (0.0080 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into persona (nombre, apellido, fecha_nac) value("Juan","Perez","2026-05-20");
+Query OK, 1 row affected (0.0057 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into persona value(2, "Juan","Perez","2026-05-20"
+                                        -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into persona value(2, "Juan","Perez","2026-05-20") ;
+ERROR: 1062 (23000): Duplicate entry '2' for key 'persona.PRIMARY'
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into persona
+                                        -> (nombre apellido)
+                                        -> values ("Pedro", "Sanchez")
+                                        -> ,("adriana", "Suares"),
+                                        -> ("Juan", "Herrera");
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'apellido)
+values ("Pedro", "Sanchez")
+,("adriana", "Suares"),
+("Juan", "Herrera"' at line 2
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into persona (nombre apellido) values ("Pedro", "Sanchez"), ("adriana", "Suares"), ("Juan", "Herrera");
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'apellido) values ("Pedro", "Sanchez"), ("adriana", "Suares"), ("Juan", "Herrera"' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into persona (nombre, apellido) values ("Pedro", "Sanchez"), ("adriana", "Suares"), ("Juan", "Herrera");
+Query OK, 3 rows affected (0.0079 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  taller1  SQL > select * from persona;
++-----------+---------+----------+------------+
+| idpersona | nombre  | apellido | fecha_nac  |
++-----------+---------+----------+------------+
+|         1 | Juan    | Perez    | 2026-05-20 |
+|         2 | Juan    | Perez    | 2026-05-20 |
+|         3 | Pedro   | Sanchez  | NULL       |
+|         4 | adriana | Suares   | NULL       |
+|         5 | Juan    | Herrera  | NULL       |
++-----------+---------+----------+------------+
+5 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > drop table persona;
+Query OK, 0 rows affected (0.0255 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > show tables;
+Empty set (0.0032 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL >
