@@ -1,0 +1,189 @@
+MySQL Shell 9.6.0
+
+Copyright (c) 2016, 2026, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use taller1
+Default schema set to `taller1`.
+Fetching global names, object names from `taller1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  taller1  SQL > create table customer(Cust_Code
+                                        -> int not null auto_increment
+                                        -> key);
+ERROR: 1050 (42S01): Table 'customer' already exists
+ MySQL  localhost:3306 ssl  taller1  SQL > create table CUSTOMER(Cust_Code int not null auto_increment key);
+ERROR: 1050 (42S01): Table 'customer' already exists
+ MySQL  localhost:3306 ssl  taller1  SQL > show Databases
+                                        -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| taller1            |
++--------------------+
+5 rows in set (0.0025 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > create table CUST(Cust_Code int not null auto_increment key);
+Query OK, 0 rows affected (0.0425 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > droptable CUST
+                                        -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'droptable CUST' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > drop table CUST ;
+Query OK, 0 rows affected (0.0201 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > create table CUST(Cust_Code int not null auto_increment key, Cust_Name varchar(50));
+Query OK, 0 rows affected (0.0300 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > create table ITEM(Item:Number int not null auto_increment key, Item_Name varchar(50));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':Number int not null auto_increment key, Item_Name varchar(50))' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > create table ITEM(Item_Number int not null auto_increment key, Item_Name varchar(50));
+Query OK, 0 rows affected (0.0205 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > drop table orders ;
+Query OK, 0 rows affected (0.0194 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > create table ORDERS(SO_Number int not null auto_increment key, Cust_Code int);
+Query OK, 0 rows affected (0.0345 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > create table ORDER_DETAILS(SO_Number int, Item_Code int, Qty_Ordered int);
+Query OK, 0 rows affected (0.0252 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into CUST(Cust_Name)
+                                        -> values("Wheelaway Cycle Center");
+
+Query OK, 1 row affected (0.0123 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into ITEM(ITEM_Name)  values("Formed Handlebar");
+Query OK, 1 row affected (0.0038 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into ORDERS(Cust_Code)  values("001");
+Query OK, 1 row affected (0.0064 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into ORDERS_DETAILS(SO_number, Item_Code, Qty_Ordered)  values("010", "1","100");
+ERROR: 1146 (42S02): Table 'taller1.orders_details' doesn't exist
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into ORDER_DETAILS(SO_number, Item_Code, Qty_Ordered)  values("010", "1","100");
+Query OK, 1 row affected (0.0076 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select* from cust
+                                        -> ;
++-----------+------------------------+
+| Cust_Code | Cust_Name              |
++-----------+------------------------+
+|         1 | Wheelaway Cycle Center |
++-----------+------------------------+
+1 row in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select* from item ;
++-------------+------------------+
+| Item_Number | Item_Name        |
++-------------+------------------+
+|           1 | Formed Handlebar |
++-------------+------------------+
+1 row in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select* from orders ;
++-----------+-----------+
+| SO_Number | Cust_Code |
++-----------+-----------+
+|         1 |         1 |
++-----------+-----------+
+1 row in set (0.0012 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select* from orders_details ;
+ERROR: 1146 (42S02): Table 'taller1.orders_details' doesn't exist
+ MySQL  localhost:3306 ssl  taller1  SQL > select* from order_details ;
++-----------+-----------+-------------+
+| SO_Number | Item_Code | Qty_Ordered |
++-----------+-----------+-------------+
+|        10 |         1 |         100 |
++-----------+-----------+-------------+
+1 row in set (0.0012 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into ORDER_DETAILS(SO_number, Item_Code, Qty_Ordered)  values("020", "2","200");
+Query OK, 1 row affected (0.0044 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into ORDERS(Cust_Code)  values("002");
+Query OK, 1 row affected (0.0055 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into ITEM(ITEM_Name)  values("20 in. Bicycle");
+Query OK, 1 row affected (0.0047 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into CUST(Cust_Name)  values("Wheelaway Cycle Center");
+Query OK, 1 row affected (0.0063 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select* from cust ;
++-----------+------------------------+
+| Cust_Code | Cust_Name              |
++-----------+------------------------+
+|         1 | Wheelaway Cycle Center |
+|         2 | Wheelaway Cycle Center |
++-----------+------------------------+
+2 rows in set (0.0017 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select* from item ;
++-------------+------------------+
+| Item_Number | Item_Name        |
++-------------+------------------+
+|           1 | Formed Handlebar |
+|           2 | 20 in. Bicycle   |
++-------------+------------------+
+2 rows in set (0.0011 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select* from orders ;
++-----------+-----------+
+| SO_Number | Cust_Code |
++-----------+-----------+
+|         1 |         1 |
+|         2 |         2 |
++-----------+-----------+
+2 rows in set (0.0010 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select* from orders_details ;
+ERROR: 1146 (42S02): Table 'taller1.orders_details' doesn't exist
+ MySQL  localhost:3306 ssl  taller1  SQL > select* from order_details ;
++-----------+-----------+-------------+
+| SO_Number | Item_Code | Qty_Ordered |
++-----------+-----------+-------------+
+|        10 |         1 |         100 |
+|        20 |         2 |         200 |
++-----------+-----------+-------------+
+2 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > drop table orders;
+Query OK, 0 rows affected (0.0246 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > create table ORDERS(SO_Number int not null auto_increment key, Cust_Code varchar(50));
+Query OK, 0 rows affected (0.0225 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into ORDERS(Cust_Code)  values("WHEEL"), ("WHEEL");
+Query OK, 2 rows affected (0.0097 sec)
+
+Records: 2  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  taller1  SQL > select from orders;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from orders' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > select * from orders;
++-----------+-----------+
+| SO_Number | Cust_Code |
++-----------+-----------+
+|         1 | WHEEL     |
+|         2 | WHEEL     |
++-----------+-----------+
+2 rows in set (0.0008 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into ORDERS(Cust_Code)  values("ETC"), ("ETC"), ("WHEEL"), ("WHEEL"), ("IBC"),;^C
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into ORDERS(Cust_Code)  values("ETC"), ("ETC"), ("WHEEL"), ("WHEEL"), ("IBC"),, ("ETC");
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', ("ETC")' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into ORDERS(Cust_Code)  values("ETC"), ("ETC"), ("WHEEL"), ("WHEEL"), ("IBC"), ("ETC");
+Query OK, 6 rows affected (0.0052 sec)
+
+Records: 6  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  taller1  SQL > select * from orders;
++-----------+-----------+
+| SO_Number | Cust_Code |
++-----------+-----------+
+|         1 | WHEEL     |
+|         2 | WHEEL     |
+|         3 | ETC       |
+|         4 | ETC       |
+|         5 | WHEEL     |
+|         6 | WHEEL     |
+|         7 | IBC       |
+|         8 | ETC       |
++-----------+-----------+
+8 rows in set (0.0013 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into cust(Cust_Name)  values ("wheelaway cycle center"),("bikese et cetera"), ("bykes et cetera"), ("wheelaway cycle center"), ("wheelacycle center"), ("inter bicyclesales"), ("bikes et cetera");
+Query OK, 7 rows affected (0.0078 sec)
+
+(i-search)`':
+ MySQL  localhost:3306 ssl  taller1  SQL >                                                                                                                  
+
+
+
+
+
+
+
