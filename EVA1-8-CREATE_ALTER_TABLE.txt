@@ -1,0 +1,405 @@
+MySQL Shell 9.6.0
+
+Copyright (c) 2016, 2026, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use database taller1
+Incorrect number of arguments for use command, usage:
+\use <schema_name>
+ MySQL  localhost:3306 ssl  SQL > use databases taller1
+Incorrect number of arguments for use command, usage:
+\use <schema_name>
+ MySQL  localhost:3306 ssl  SQL > use databases taller1;
+Incorrect number of arguments for use command, usage:
+\use <schema_name>
+ MySQL  localhost:3306 ssl  SQL > use database taller1;
+Incorrect number of arguments for use command, usage:
+\use <schema_name>
+ MySQL  localhost:3306 ssl  SQL > use taller1;
+Default schema set to `taller1`.
+Fetching global names, object names from `taller1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  taller1  SQL > show tables;
++-------------------+
+| Tables_in_taller1 |
++-------------------+
+| curso             |
+| curso2            |
+| cust              |
+| customer          |
+| employe           |
+| item              |
+| job               |
+| order_details     |
+| orders            |
+| persona           |
+| prof              |
+| state             |
+| students          |
+| ventas            |
++-------------------+
+14 rows in set (0.0055 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > create temporary table(
+                                        -> od ont not null auto_increment key,
+                                        ->
+                                        -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(
+od ont not null auto_increment key,' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > create temporary table( id int not null auto_increment key,  ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '( id int not null auto_increment key,' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > create temporary table( id int not null auto_increment key,  nombre varchar (50));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '( id int not null auto_increment key,  nombre varchar (50))' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > create temporary table temp( id int not null auto_increment key,  nombre varchar (50));
+Query OK, 0 rows affected (0.0067 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > show tables;
++-------------------+
+| Tables_in_taller1 |
++-------------------+
+| curso             |
+| curso2            |
+| cust              |
+| customer          |
+| employe           |
+| item              |
+| job               |
+| order_details     |
+| orders            |
+| persona           |
+| prof              |
+| state             |
+| students          |
+| ventas            |
++-------------------+
+14 rows in set (0.0060 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > desc temp:
+                                        -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > create temporary table temp( id int not null auto_increment key,  nombre varchar (50));
+ERROR: 1050 (42S01): Table 'temp' already exists
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into temp(nombre) values("aaaa"), ("bbbbb");
+Query OK, 2 rows affected (0.0104 sec)
+
+Records: 2  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  taller1  SQL > select * from temp
+                                        -> ;
++----+--------+
+| id | nombre |
++----+--------+
+|  1 | aaaa   |
+|  2 | bbbbb  |
++----+--------+
+2 rows in set (0.0013 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > \discconect
+Unknown command: '\discconect'
+ MySQL  localhost:3306 ssl  taller1  SQL > \discconected
+Unknown command: '\discconected'
+ MySQL  localhost:3306 ssl  taller1  SQL > \disconnect
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 9
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use taller1;
+Default schema set to `taller1`.
+Fetching global names, object names from `taller1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  taller1  SQL > use sakila;
+MySQL Error 1049: Unknown database 'sakila'
+ MySQL  localhost:3306 ssl  taller1  SQL > use Sakila;
+MySQL Error 1049: Unknown database 'sakila'
+ MySQL  localhost:3306 ssl  taller1  SQL > use Sakila
+MySQL Error 1049: Unknown database 'sakila'
+ MySQL  localhost:3306 ssl  taller1  SQL > use Saquila
+MySQL Error 1049: Unknown database 'saquila'
+ MySQL  localhost:3306 ssl  taller1  SQL > use sakila;
+MySQL Error 1049: Unknown database 'sakila'
+ MySQL  localhost:3306 ssl  taller1  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| taller1            |
++--------------------+
+5 rows in set (0.0059 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL >  use information_schema;
+Default schema set to `information_schema`.
+Fetching global names, object names from `information_schema` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  information_schema  SQL > show tables;
++---------------------------------------+
+| Tables_in_information_schema          |
++---------------------------------------+
+| ADMINISTRABLE_ROLE_AUTHORIZATIONS     |
+| APPLICABLE_ROLES                      |
+| CHARACTER_SETS                        |
+| CHECK_CONSTRAINTS                     |
+| COLLATION_CHARACTER_SET_APPLICABILITY |
+| COLLATIONS                            |
+| COLUMN_PRIVILEGES                     |
+| COLUMN_STATISTICS                     |
+| COLUMNS                               |
+| COLUMNS_EXTENSIONS                    |
+| ENABLED_ROLES                         |
+| ENGINES                               |
+| EVENTS                                |
+| FILES                                 |
+| INNODB_BUFFER_PAGE                    |
+| INNODB_BUFFER_PAGE_LRU                |
+| INNODB_BUFFER_POOL_STATS              |
+| INNODB_CACHED_INDEXES                 |
+| INNODB_CMP                            |
+| INNODB_CMP_PER_INDEX                  |
+| INNODB_CMP_PER_INDEX_RESET            |
+| INNODB_CMP_RESET                      |
+| INNODB_CMPMEM                         |
+| INNODB_CMPMEM_RESET                   |
+| INNODB_COLUMNS                        |
+| INNODB_DATAFILES                      |
+| INNODB_FIELDS                         |
+| INNODB_FOREIGN                        |
+| INNODB_FOREIGN_COLS                   |
+| INNODB_FT_BEING_DELETED               |
+| INNODB_FT_CONFIG                      |
+| INNODB_FT_DEFAULT_STOPWORD            |
+| INNODB_FT_DELETED                     |
+| INNODB_FT_INDEX_CACHE                 |
+| INNODB_FT_INDEX_TABLE                 |
+| INNODB_INDEXES                        |
+| INNODB_METRICS                        |
+| INNODB_SESSION_TEMP_TABLESPACES       |
+| INNODB_TABLES                         |
+| INNODB_TABLESPACES                    |
+| INNODB_TABLESPACES_BRIEF              |
+| INNODB_TABLESTATS                     |
+| INNODB_TEMP_TABLE_INFO                |
+| INNODB_TRX                            |
+| INNODB_VIRTUAL                        |
+| KEY_COLUMN_USAGE                      |
+| KEYWORDS                              |
+| OPTIMIZER_TRACE                       |
+| PARAMETERS                            |
+| PARTITIONS                            |
+| PLUGINS                               |
+| PROCESSLIST                           |
+| PROFILING                             |
+| REFERENTIAL_CONSTRAINTS               |
+| RESOURCE_GROUPS                       |
+| ROLE_COLUMN_GRANTS                    |
+| ROLE_ROUTINE_GRANTS                   |
+| ROLE_TABLE_GRANTS                     |
+| ROUTINES                              |
+| SCHEMA_PRIVILEGES                     |
+| SCHEMATA                              |
+| SCHEMATA_EXTENSIONS                   |
+| ST_GEOMETRY_COLUMNS                   |
+| ST_SPATIAL_REFERENCE_SYSTEMS          |
+| ST_UNITS_OF_MEASURE                   |
+| STATISTICS                            |
+| TABLE_CONSTRAINTS                     |
+| TABLE_CONSTRAINTS_EXTENSIONS          |
+| TABLE_PRIVILEGES                      |
+| TABLES                                |
+| TABLES_EXTENSIONS                     |
+| TABLESPACES                           |
+| TABLESPACES_EXTENSIONS                |
+| TRIGGERS                              |
+| USER_ATTRIBUTES                       |
+| USER_PRIVILEGES                       |
+| VIEW_ROUTINE_USAGE                    |
+| VIEW_TABLE_USAGE                      |
+| VIEWS                                 |
++---------------------------------------+
+79 rows in set (0.0071 sec)
+ MySQL  localhost:3306 ssl  information_schema  SQL > \diconnect
+Unknown command: '\diconnect'
+ MySQL  localhost:3306 ssl  information_schema  SQL > \disconnect
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 10
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use taller1
+Default schema set to `taller1`.
+Fetching global names, object names from `taller1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  taller1  SQL > show tables;
++-------------------+
+| Tables_in_taller1 |
++-------------------+
+| curso             |
+| curso2            |
+| cust              |
+| customer          |
+| employe           |
+| item              |
+| job               |
+| order_details     |
+| orders            |
+| persona           |
+| prof              |
+| state             |
+| students          |
+| ventas            |
++-------------------+
+14 rows in set (0.0031 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > desc persona;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| idpersona | int         | NO   | PRI | NULL    | auto_increment |
+| nombre    | varchar(50) | YES  |     | NULL    |                |
+| apellidos | varchar(50) | YES  |     | NULL    |                |
+| fecha_nac | date        | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+4 rows in set (0.0120 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table persona
+                                        -> add rfc varchar (13) not null;
+Query OK, 0 rows affected (0.0763 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  taller1  SQL > desc persona;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| idpersona | int         | NO   | PRI | NULL    | auto_increment |
+| nombre    | varchar(50) | YES  |     | NULL    |                |
+| apellidos | varchar(50) | YES  |     | NULL    |                |
+| fecha_nac | date        | YES  |     | NULL    |                |
+| rfc       | varchar(13) | NO   |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+5 rows in set (0.0040 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select * from persona;
++-----------+--------+------------+------------+-----+
+| idpersona | nombre | apellidos  | fecha_nac  | rfc |
++-----------+--------+------------+------------+-----+
+|         1 | Juan   | Perez      | 1990-10-25 |     |
+|         2 | Pedro  | Paramo     | 2005-11-25 |     |
+|         3 | Pedro  | Picapiedra | 2003-09-25 |     |
+|         4 | saul   | NULL       | NULL       |     |
+|         5 | Pipo   | NULL       | NULL       |     |
+|         6 | checo  | NULL       | NULL       |     |
++-----------+--------+------------+------------+-----+
+6 rows in set (0.0016 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table persona
+                                        -> drop rfc;
+Query OK, 0 rows affected (0.0401 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  taller1  SQL > desc persona;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| idpersona | int         | NO   | PRI | NULL    | auto_increment |
+| nombre    | varchar(50) | YES  |     | NULL    |                |
+| apellidos | varchar(50) | YES  |     | NULL    |                |
+| fecha_nac | date        | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+4 rows in set (0.0039 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > alter tablepersona
+                                        -> addrfc varchar (13) not null after apellidos;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tablepersona
+addrfc varchar (13) not null after apellidos' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > alter tablepersona  add rfc varchar (13) not null after apellidos;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tablepersona  add rfc varchar (13) not null after apellidos' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > alter tablepersona add rfc varchar (13) not null after apellidos;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tablepersona add rfc varchar (13) not null after apellidos' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table persona add rfc varchar (13) not null after apellidos;
+Query OK, 0 rows affected (0.0402 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  taller1  SQL > desc persona;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| idpersona | int         | NO   | PRI | NULL    | auto_increment |
+| nombre    | varchar(50) | YES  |     | NULL    |                |
+| apellidos | varchar(50) | YES  |     | NULL    |                |
+| rfc       | varchar(13) | NO   |     | NULL    |                |
+| fecha_nac | date        | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+5 rows in set (0.0040 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select * from perosna;
+ERROR: 1146 (42S02): Table 'taller1.perosna' doesn't exist
+ MySQL  localhost:3306 ssl  taller1  SQL > select * from persona;
++-----------+--------+------------+-----+------------+
+| idpersona | nombre | apellidos  | rfc | fecha_nac  |
++-----------+--------+------------+-----+------------+
+|         1 | Juan   | Perez      |     | 1990-10-25 |
+|         2 | Pedro  | Paramo     |     | 2005-11-25 |
+|         3 | Pedro  | Picapiedra |     | 2003-09-25 |
+|         4 | saul   | NULL       |     | NULL       |
+|         5 | Pipo   | NULL       |     | NULL       |
+|         6 | checo  | NULL       |     | NULL       |
++-----------+--------+------------+-----+------------+
+6 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table persona add apellido_mat varchar (50) after apellidos;
+Query OK, 0 rows affected (0.0383 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  taller1  SQL > desc persona;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| idpersona    | int         | NO   | PRI | NULL    | auto_increment |
+| nombre       | varchar(50) | YES  |     | NULL    |                |
+| apellidos    | varchar(50) | YES  |     | NULL    |                |
+| apellido_mat | varchar(50) | YES  |     | NULL    |                |
+| rfc          | varchar(13) | NO   |     | NULL    |                |
+| fecha_nac    | date        | YES  |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.0043 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select * from persona;
++-----------+--------+------------+--------------+-----+------------+
+| idpersona | nombre | apellidos  | apellido_mat | rfc | fecha_nac  |
++-----------+--------+------------+--------------+-----+------------+
+|         1 | Juan   | Perez      | NULL         |     | 1990-10-25 |
+|         2 | Pedro  | Paramo     | NULL         |     | 2005-11-25 |
+|         3 | Pedro  | Picapiedra | NULL         |     | 2003-09-25 |
+|         4 | saul   | NULL       | NULL         |     | NULL       |
+|         5 | Pipo   | NULL       | NULL         |     | NULL       |
+|         6 | checo  | NULL       | NULL         |     | NULL       |
++-----------+--------+------------+--------------+-----+------------+
+6 rows in set (0.0017 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table persona
+                                        -> rename column apellidos to apellido_pat;
+Query OK, 0 rows affected (0.0350 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  taller1  SQL > desc persona
+                                        -> ;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| idpersona    | int         | NO   | PRI | NULL    | auto_increment |
+| nombre       | varchar(50) | YES  |     | NULL    |                |
+| apellido_pat | varchar(50) | YES  |     | NULL    |                |
+| apellido_mat | varchar(50) | YES  |     | NULL    |                |
+| rfc          | varchar(13) | NO   |     | NULL    |                |
+| fecha_nac    | date        | YES  |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.0041 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > delect * from persona
+                                        -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delect * from persona' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > select * from persona ;
++-----------+--------+--------------+--------------+-----+------------+
+| idpersona | nombre | apellido_pat | apellido_mat | rfc | fecha_nac  |
++-----------+--------+--------------+--------------+-----+------------+
+|         1 | Juan   | Perez        | NULL         |     | 1990-10-25 |
+|         2 | Pedro  | Paramo       | NULL         |     | 2005-11-25 |
+|         3 | Pedro  | Picapiedra   | NULL         |     | 2003-09-25 |
+|         4 | saul   | NULL         | NULL         |     | NULL       |
+|         5 | Pipo   | NULL         | NULL         |     | NULL       |
+|         6 | checo  | NULL         | NULL         |     | NULL       |
++-----------+--------+--------------+--------------+-----+------------+
+6 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL >
