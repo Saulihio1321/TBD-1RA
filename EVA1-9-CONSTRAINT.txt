@@ -1,0 +1,310 @@
+MySQL Shell 9.6.0
+
+Copyright (c) 2016, 2026, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use taller1
+Default schema set to `taller1`.
+Fetching global names, object names from `taller1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  taller1  SQL > show databases
+                                        -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| taller1            |
++--------------------+
+5 rows in set (0.0017 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > use taller1
+Default schema set to `taller1`.
+Fetching global names, object names from `taller1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  taller1  SQL > show tables;
++-------------------+
+| Tables_in_taller1 |
++-------------------+
+| curso             |
+| curso2            |
+| cust              |
+| customer          |
+| employe           |
+| item              |
+| job               |
+| order_details     |
+| orders            |
+| persona           |
+| prof              |
+| state             |
+| students          |
+| ventas            |
++-------------------+
+14 rows in set (0.0028 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > desc persona;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| idpersona    | int         | NO   | PRI | NULL    | auto_increment |
+| nombre       | varchar(50) | YES  |     | NULL    |                |
+| apellido_pat | varchar(50) | YES  |     | NULL    |                |
+| apellido_mat | varchar(50) | YES  |     | NULL    |                |
+| rfc          | varchar(13) | NO   |     | NULL    |                |
+| fecha_nac    | date        | YES  |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.0033 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table persona
+                                        -> change apellido_pat apellid_pat varchar(40),
+                                        -> change apellido_mat apellido_mat varchar(40);
+Query OK, 6 rows affected (0.0749 sec)
+
+Records: 6  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table persona change apellido_pat apellido_pat varchar(40);
+ERROR: 1054 (42S22): Unknown column 'apellido_pat' in 'persona'
+ MySQL  localhost:3306 ssl  taller1  SQL > desc persona;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| idpersona    | int         | NO   | PRI | NULL    | auto_increment |
+| nombre       | varchar(50) | YES  |     | NULL    |                |
+| apellid_pat  | varchar(40) | YES  |     | NULL    |                |
+| apellido_mat | varchar(40) | YES  |     | NULL    |                |
+| rfc          | varchar(13) | NO   |     | NULL    |                |
+| fecha_nac    | date        | YES  |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.0035 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table persona
+                                        -> rename column apellid_pat to
+                                        -> apellido_pat;
+Query OK, 0 rows affected (0.0220 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  taller1  SQL > desc persona;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| idpersona    | int         | NO   | PRI | NULL    | auto_increment |
+| nombre       | varchar(50) | YES  |     | NULL    |                |
+| apellido_pat | varchar(40) | YES  |     | NULL    |                |
+| apellido_mat | varchar(40) | YES  |     | NULL    |                |
+| rfc          | varchar(13) | NO   |     | NULL    |                |
+| fecha_nac    | date        | YES  |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.0021 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select * from persona;
++-----------+--------+--------------+--------------+-----+------------+
+| idpersona | nombre | apellido_pat | apellido_mat | rfc | fecha_nac  |
++-----------+--------+--------------+--------------+-----+------------+
+|         1 | Juan   | Perez        | NULL         |     | 1990-10-25 |
+|         2 | Pedro  | Paramo       | NULL         |     | 2005-11-25 |
+|         3 | Pedro  | Picapiedra   | NULL         |     | 2003-09-25 |
+|         4 | saul   | NULL         | NULL         |     | NULL       |
+|         5 | Pipo   | NULL         | NULL         |     | NULL       |
+|         6 | checo  | NULL         | NULL         |     | NULL       |
++-----------+--------+--------------+--------------+-----+------------+
+6 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into persona(rfc)
+                                        -> value("ASDF321sd");
+Query OK, 1 row affected (0.0096 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into persona(nombre, apellido_pat, apellido_mat, fecha_nac) value("Juan", "Perez", "Bastardo", "2008-10-10);
+                                        "> ;
+                                        "> insert into persona(rfc) value("ASDF321sd");
+                                        "> "
+                                        -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ASDF321sd");
+"' at line 3
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into persona(nombre, apellido_pat, apellido_mat, fecha_nac) value("Juan", "Perez", "Bastardo", "2008-10-10");
+ERROR: 1364 (HY000): Field 'rfc' doesn't have a default value
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table persona
+                                        -> change rfc rfc varchar(13) not null default "xxxx000000000";
+Query OK, 0 rows affected (0.0184 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  taller1  SQL > desc persona;
++--------------+-------------+------+-----+---------------+----------------+
+| Field        | Type        | Null | Key | Default       | Extra          |
++--------------+-------------+------+-----+---------------+----------------+
+| idpersona    | int         | NO   | PRI | NULL          | auto_increment |
+| nombre       | varchar(50) | YES  |     | NULL          |                |
+| apellido_pat | varchar(40) | YES  |     | NULL          |                |
+| apellido_mat | varchar(40) | YES  |     | NULL          |                |
+| rfc          | varchar(13) | NO   |     | xxxx000000000 |                |
+| fecha_nac    | date        | YES  |     | NULL          |                |
++--------------+-------------+------+-----+---------------+----------------+
+6 rows in set (0.0038 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select*from persona
+                                        -> ;
++-----------+--------+--------------+--------------+-----------+------------+
+| idpersona | nombre | apellido_pat | apellido_mat | rfc       | fecha_nac  |
++-----------+--------+--------------+--------------+-----------+------------+
+|         1 | Juan   | Perez        | NULL         |           | 1990-10-25 |
+|         2 | Pedro  | Paramo       | NULL         |           | 2005-11-25 |
+|         3 | Pedro  | Picapiedra   | NULL         |           | 2003-09-25 |
+|         4 | saul   | NULL         | NULL         |           | NULL       |
+|         5 | Pipo   | NULL         | NULL         |           | NULL       |
+|         6 | checo  | NULL         | NULL         |           | NULL       |
+|         7 | NULL   | NULL         | NULL         | ASDF321sd | NULL       |
++-----------+--------+--------------+--------------+-----------+------------+
+7 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into persona(nombre, apellido_pat, apellido_mat, fecha_nac) value("Juan", "Perez", "Bastardo", "2008-10-10");
+Query OK, 1 row affected (0.0053 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select*from persona ;
++-----------+--------+--------------+--------------+---------------+------------+
+| idpersona | nombre | apellido_pat | apellido_mat | rfc           | fecha_nac  |
++-----------+--------+--------------+--------------+---------------+------------+
+|         1 | Juan   | Perez        | NULL         |               | 1990-10-25 |
+|         2 | Pedro  | Paramo       | NULL         |               | 2005-11-25 |
+|         3 | Pedro  | Picapiedra   | NULL         |               | 2003-09-25 |
+|         4 | saul   | NULL         | NULL         |               | NULL       |
+|         5 | Pipo   | NULL         | NULL         |               | NULL       |
+|         6 | checo  | NULL         | NULL         |               | NULL       |
+|         7 | NULL   | NULL         | NULL         | ASDF321sd     | NULL       |
+|         8 | Juan   | Perez        | Bastardo     | xxxx000000000 | 2008-10-10 |
++-----------+--------+--------------+--------------+---------------+------------+
+8 rows in set (0.0008 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table persona
+                                        -> add column genero varchar(1);
+Query OK, 0 rows affected (0.0256 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  taller1  SQL > desc persona;
++--------------+-------------+------+-----+---------------+----------------+
+| Field        | Type        | Null | Key | Default       | Extra          |
++--------------+-------------+------+-----+---------------+----------------+
+| idpersona    | int         | NO   | PRI | NULL          | auto_increment |
+| nombre       | varchar(50) | YES  |     | NULL          |                |
+| apellido_pat | varchar(40) | YES  |     | NULL          |                |
+| apellido_mat | varchar(40) | YES  |     | NULL          |                |
+| rfc          | varchar(13) | NO   |     | xxxx000000000 |                |
+| fecha_nac    | date        | YES  |     | NULL          |                |
+| genero       | varchar(1)  | YES  |     | NULL          |                |
++--------------+-------------+------+-----+---------------+----------------+
+7 rows in set (0.0029 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into persona
+                                        -> (nombre, apellido_pat, genero)
+                                        -> value("saul", "bermudez", "H")
+                                        -> ;
+Query OK, 1 row affected (0.0056 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select * from persona;
++-----------+--------+--------------+--------------+---------------+------------+--------+
+| idpersona | nombre | apellido_pat | apellido_mat | rfc           | fecha_nac  | genero |
++-----------+--------+--------------+--------------+---------------+------------+--------+
+|         1 | Juan   | Perez        | NULL         |               | 1990-10-25 | NULL   |
+|         2 | Pedro  | Paramo       | NULL         |               | 2005-11-25 | NULL   |
+|         3 | Pedro  | Picapiedra   | NULL         |               | 2003-09-25 | NULL   |
+|         4 | saul   | NULL         | NULL         |               | NULL       | NULL   |
+|         5 | Pipo   | NULL         | NULL         |               | NULL       | NULL   |
+|         6 | checo  | NULL         | NULL         |               | NULL       | NULL   |
+|         7 | NULL   | NULL         | NULL         | ASDF321sd     | NULL       | NULL   |
+|         8 | Juan   | Perez        | Bastardo     | xxxx000000000 | 2008-10-10 | NULL   |
+|         9 | saul   | bermudez     | NULL         | xxxx000000000 | NULL       | H      |
++-----------+--------+--------------+--------------+---------------+------------+--------+
+9 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > delete from persona
+                                        -> where nombre = "saul";
+Query OK, 2 rows affected (0.0101 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select * from persona;
++-----------+--------+--------------+--------------+---------------+------------+--------+
+| idpersona | nombre | apellido_pat | apellido_mat | rfc           | fecha_nac  | genero |
++-----------+--------+--------------+--------------+---------------+------------+--------+
+|         1 | Juan   | Perez        | NULL         |               | 1990-10-25 | NULL   |
+|         2 | Pedro  | Paramo       | NULL         |               | 2005-11-25 | NULL   |
+|         3 | Pedro  | Picapiedra   | NULL         |               | 2003-09-25 | NULL   |
+|         5 | Pipo   | NULL         | NULL         |               | NULL       | NULL   |
+|         6 | checo  | NULL         | NULL         |               | NULL       | NULL   |
+|         7 | NULL   | NULL         | NULL         | ASDF321sd     | NULL       | NULL   |
+|         8 | Juan   | Perez        | Bastardo     | xxxx000000000 | 2008-10-10 | NULL   |
++-----------+--------+--------------+--------------+---------------+------------+--------+
+7 rows in set (0.0019 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table persona
+                                        -> change genero genero enum('H', 'M', 'O');
+Query OK, 7 rows affected (0.0588 sec)
+
+Records: 7  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  taller1  SQL > desc persona;
++--------------+-------------------+------+-----+---------------+----------------+
+| Field        | Type              | Null | Key | Default       | Extra          |
++--------------+-------------------+------+-----+---------------+----------------+
+| idpersona    | int               | NO   | PRI | NULL          | auto_increment |
+| nombre       | varchar(50)       | YES  |     | NULL          |                |
+| apellido_pat | varchar(40)       | YES  |     | NULL          |                |
+| apellido_mat | varchar(40)       | YES  |     | NULL          |                |
+| rfc          | varchar(13)       | NO   |     | xxxx000000000 |                |
+| fecha_nac    | date              | YES  |     | NULL          |                |
+| genero       | enum('H','M','O') | YES  |     | NULL          |                |
++--------------+-------------------+------+-----+---------------+----------------+
+7 rows in set (0.0050 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into persona(nombre, genero)
+                                        -> values("saul", "1");
+Query OK, 1 row affected (0.0050 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select * from persona;
++-----------+--------+--------------+--------------+---------------+------------+--------+
+| idpersona | nombre | apellido_pat | apellido_mat | rfc           | fecha_nac  | genero |
++-----------+--------+--------------+--------------+---------------+------------+--------+
+|         1 | Juan   | Perez        | NULL         |               | 1990-10-25 | NULL   |
+|         2 | Pedro  | Paramo       | NULL         |               | 2005-11-25 | NULL   |
+|         3 | Pedro  | Picapiedra   | NULL         |               | 2003-09-25 | NULL   |
+|         5 | Pipo   | NULL         | NULL         |               | NULL       | NULL   |
+|         6 | checo  | NULL         | NULL         |               | NULL       | NULL   |
+|         7 | NULL   | NULL         | NULL         | ASDF321sd     | NULL       | NULL   |
+|         8 | Juan   | Perez        | Bastardo     | xxxx000000000 | 2008-10-10 | NULL   |
+|        10 | saul   | NULL         | NULL         | xxxx000000000 | NULL       | H      |
++-----------+--------+--------------+--------------+---------------+------------+--------+
+8 rows in set (0.0011 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into persona(nombre, genero) values("juana", "M");
+Query OK, 1 row affected (0.0069 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into persona(nombre, genero) values("juano", "O");
+Query OK, 1 row affected (0.0066 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select *from persona;
++-----------+--------+--------------+--------------+---------------+------------+--------+
+| idpersona | nombre | apellido_pat | apellido_mat | rfc           | fecha_nac  | genero |
++-----------+--------+--------------+--------------+---------------+------------+--------+
+|         1 | Juan   | Perez        | NULL         |               | 1990-10-25 | NULL   |
+|         2 | Pedro  | Paramo       | NULL         |               | 2005-11-25 | NULL   |
+|         3 | Pedro  | Picapiedra   | NULL         |               | 2003-09-25 | NULL   |
+|         5 | Pipo   | NULL         | NULL         |               | NULL       | NULL   |
+|         6 | checo  | NULL         | NULL         |               | NULL       | NULL   |
+|         7 | NULL   | NULL         | NULL         | ASDF321sd     | NULL       | NULL   |
+|         8 | Juan   | Perez        | Bastardo     | xxxx000000000 | 2008-10-10 | NULL   |
+|        10 | saul   | NULL         | NULL         | xxxx000000000 | NULL       | H      |
+|        11 | juana  | NULL         | NULL         | xxxx000000000 | NULL       | M      |
+|        12 | juano  | NULL         | NULL         | xxxx000000000 | NULL       | O      |
++-----------+--------+--------------+--------------+---------------+------------+--------+
+10 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table persona
+                                        -> add salario int check(salario > 0);
+Query OK, 10 rows affected (0.0678 sec)
+
+Records: 10  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  taller1  SQL > show create table persona;
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| persona | CREATE TABLE `persona` (
+  `idpersona` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) DEFAULT NULL,
+  `apellido_pat` varchar(40) DEFAULT NULL,
+  `apellido_mat` varchar(40) DEFAULT NULL,
+  `rfc` varchar(13) NOT NULL DEFAULT 'xxxx000000000',
+  `fecha_nac` date DEFAULT NULL,
+  `genero` enum('H','M','O') DEFAULT NULL,
+  `salario` int DEFAULT NULL,
+  PRIMARY KEY (`idpersona`),
+  CONSTRAINT `persona_chk_1` CHECK ((`salario` > 0))
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.0023 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into persona(nombre, salario)
+                                        -> value("Juan", "500");
+Query OK, 1 row affected (0.0054 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into persona(nombre, salario) value("Juan", "0");
+ERROR: 3819 (HY000): Check constraint 'persona_chk_1' is violated.
+ MySQL  localhost:3306 ssl  taller1  SQL >
