@@ -1,0 +1,189 @@
+MySQL Shell 9.6.0
+
+Copyright (c) 2016, 2026, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use taller1
+Default schema set to `taller1`.
+Fetching global names, object names from `taller1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  taller1  SQL > desc persona;
++--------------+-------------------+------+-----+---------------+----------------+
+| Field        | Type              | Null | Key | Default       | Extra          |
++--------------+-------------------+------+-----+---------------+----------------+
+| idpersona    | int               | NO   | PRI | NULL          | auto_increment |
+| nombre       | varchar(50)       | YES  |     | NULL          |                |
+| apellido_pat | varchar(40)       | YES  |     | NULL          |                |
+| apellido_mat | varchar(40)       | YES  |     | NULL          |                |
+| rfc          | varchar(13)       | NO   |     | xxxx000000000 |                |
+| fecha_nac    | date              | YES  |     | NULL          |                |
+| genero       | enum('H','M','O') | YES  |     | NULL          |                |
+| salario      | int               | YES  |     | NULL          |                |
++--------------+-------------------+------+-----+---------------+----------------+
+8 rows in set (0.0049 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select * from persona;
++-----------+--------+--------------+--------------+---------------+------------+--------+---------+
+| idpersona | nombre | apellido_pat | apellido_mat | rfc           | fecha_nac  | genero | salario |
++-----------+--------+--------------+--------------+---------------+------------+--------+---------+
+|         1 | Juan   | Perez        | NULL         |               | 1990-10-25 | NULL   |    NULL |
+|         2 | Pedro  | Paramo       | NULL         |               | 2005-11-25 | NULL   |    NULL |
+|         3 | Pedro  | Picapiedra   | NULL         |               | 2003-09-25 | NULL   |    NULL |
+|         5 | Pipo   | NULL         | NULL         |               | NULL       | NULL   |    NULL |
+|         6 | checo  | NULL         | NULL         |               | NULL       | NULL   |    NULL |
+|         7 | NULL   | NULL         | NULL         | ASDF321sd     | NULL       | NULL   |    NULL |
+|         8 | Juan   | Perez        | Bastardo     | xxxx000000000 | 2008-10-10 | NULL   |    NULL |
+|        10 | saul   | NULL         | NULL         | xxxx000000000 | NULL       | H      |    NULL |
+|        11 | juana  | NULL         | NULL         | xxxx000000000 | NULL       | M      |    NULL |
+|        12 | juano  | NULL         | NULL         | xxxx000000000 | NULL       | O      |    NULL |
+|        13 | Juan   | NULL         | NULL         | xxxx000000000 | NULL       | NULL   |     500 |
++-----------+--------+--------------+--------------+---------------+------------+--------+---------+
+11 rows in set (0.0037 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > show table persona;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'persona' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > show create table persona;
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| persona | CREATE TABLE `persona` (
+  `idpersona` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) DEFAULT NULL,
+  `apellido_pat` varchar(40) DEFAULT NULL,
+  `apellido_mat` varchar(40) DEFAULT NULL,
+  `rfc` varchar(13) NOT NULL DEFAULT 'xxxx000000000',
+  `fecha_nac` date DEFAULT NULL,
+  `genero` enum('H','M','O') DEFAULT NULL,
+  `salario` int DEFAULT NULL,
+  PRIMARY KEY (`idpersona`),
+  CONSTRAINT `persona_chk_1` CHECK ((`salario` > 0))
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.0043 sec)                  create table prendaRopa;
+ERROR: 4028 (HY000): A table must have at least one visible column.
+ MySQL  localhost:3306 ssl  taller1  SQL > ;
+ERROR: No query specified.
+ MySQL  localhost:3306 ssl  taller1  SQL > create table prendaRopa(nombre varchar(50), marca varchar(50), modelo varchar(50), color varchar(50), ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > create table prendaRopa(nombre varchar(50), marca varchar(50), modelo varchar(50), color varchar(50),
+                                        -> genero enum ('H', 'M', 'U'),
+                                        -> talla enum ('xs', 's', 'm', 'l', 'xl', 'xxl')
+                                        -> precio int check (precio > 0));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'precio int check (precio > 0))' at line 4
+ MySQL  localhost:3306 ssl  taller1  SQL > create table prendaRopa(nombre varchar(50), marca varchar(50), modelo varchar(50), color varchar(50), genero enum ('H', 'M', 'U'), talla enum ('xs', 's', 'm', 'l', 'xl', 'xxl') precio int check (precio > 0);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'precio int check (precio > 0)' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > create table prendaRopa(nombre varchar(50), marca varchar(50), modelo varchar(50), color varchar(50), genero enum ('H', 'M', 'U'), talla enum ('xs', 's', 'm', 'l', 'xl', 'xxl'), precio int check (precio > 0);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > create table prendaRopa(nombre varchar(50), marca varchar(50), modelo varchar(50), color varchar(50), genero enum ('H', 'M', 'U'), talla enum ('xs', 's', 'm', 'l', 'xl', 'xxl'), precio int check (precio > 0));
+Query OK, 0 rows affected (0.0285 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > desc prendaRopa;
++--------+-----------------------------------+------+-----+---------+-------+
+| Field  | Type                              | Null | Key | Default | Extra |
++--------+-----------------------------------+------+-----+---------+-------+
+| nombre | varchar(50)                       | YES  |     | NULL    |       |
+| marca  | varchar(50)                       | YES  |     | NULL    |       |
+| modelo | varchar(50)                       | YES  |     | NULL    |       |
+| color  | varchar(50)                       | YES  |     | NULL    |       |
+| genero | enum('H','M','U')                 | YES  |     | NULL    |       |
+| talla  | enum('xs','s','m','l','xl','xxl') | YES  |     | NULL    |       |
+| precio | int                               | YES  |     | NULL    |       |
++--------+-----------------------------------+------+-----+---------+-------+
+7 rows in set (0.0053 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table prendaRopa
+                                        -> change nombre varchar(50) not null default;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar(50) not null default' at line 2
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table prendaRopa change nombre varchar(50) nombrevarchar(50) not null default;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar(50) nombrevarchar(50) not null default' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table prendaRopa change nombre varchar(50) nombre varchar(50) not null default;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar(50) nombre varchar(50) not null default' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table prendaRopa change nombre varchar(50) nombre varchar(50) not null default "nombre";
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar(50) nombre varchar(50) not null default "nombre"' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table prendaRopa change nombre varchar(50) nombre varchar(50) not null;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar(50) nombre varchar(50) not null' at line 1
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table prendaRopa change nombre nombre varchar(50) not null;
+Query OK, 0 rows affected (0.0573 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table prendaRopa change precio precio decimal(5,2) check(precio > 0);
+Query OK, 0 rows affected (0.0602 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into prendaRopa (nombre, color, genero, talla, precio)
+                                        -> values("playera","rojo","M","xl","199.99");
+Query OK, 1 row affected (0.0094 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > select *from prendaRopa;
++---------+-------+--------+-------+--------+-------+--------+
+| nombre  | marca | modelo | color | genero | talla | precio |
++---------+-------+--------+-------+--------+-------+--------+
+| playera | NULL  | NULL   | rojo  | M      | xl    | 199.99 |
++---------+-------+--------+-------+--------+-------+--------+
+1 row in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > create table cliente(
+                                        -> rfc varchar(13) unique key,
+                                        -> nombre varchar(50) not null);
+Query OK, 0 rows affected (0.0345 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > desc cliente;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rfc    | varchar(13) | YES  | UNI | NULL    |       |
+| nombre | varchar(50) | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.0053 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into cliente
+                                        -> values("xxxx1234xxx", "juan");
+Query OK, 1 row affected (0.0066 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > insert into cliente  values("xxxx1234xxx", "juan");
+ERROR: 1062 (23000): Duplicate entry 'xxxx1234xxx' for key 'cliente.rfc'
+ MySQL  localhost:3306 ssl  taller1  SQL > show create table persona;
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| persona | CREATE TABLE `persona` (
+  `idpersona` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) DEFAULT NULL,
+  `apellido_pat` varchar(40) DEFAULT NULL,
+  `apellido_mat` varchar(40) DEFAULT NULL,
+  `rfc` varchar(13) NOT NULL DEFAULT 'xxxx000000000',
+  `fecha_nac` date DEFAULT NULL,
+  `genero` enum('H','M','O') DEFAULT NULL,
+  `salario` int DEFAULT NULL,
+  PRIMARY KEY (`idpersona`),
+  CONSTRAINT `persona_chk_1` CHECK ((`salario` > 0))
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.0016 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table persona
+                                        -> drop contraint persona_chk_1;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'persona_chk_1' at line 2
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table persona drop constraint persona_chk_1;
+Query OK, 0 rows affected (0.0095 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  taller1  SQL > show create table persona;
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| persona | CREATE TABLE `persona` (
+  `idpersona` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) DEFAULT NULL,
+  `apellido_pat` varchar(40) DEFAULT NULL,
+  `apellido_mat` varchar(40) DEFAULT NULL,
+  `rfc` varchar(13) NOT NULL DEFAULT 'xxxx000000000',
+  `fecha_nac` date DEFAULT NULL,
+  `genero` enum('H','M','O') DEFAULT NULL,
+  `salario` int DEFAULT NULL,
+  PRIMARY KEY (`idpersona`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  taller1  SQL > alter table persona add constraint check(salario>0);
+Query OK, 11 rows affected (0.0591 sec)
+
+Records: 11  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  taller1  SQL >
